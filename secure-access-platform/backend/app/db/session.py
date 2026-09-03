@@ -15,6 +15,7 @@ from collections.abc import AsyncGenerator
 
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncEngine
 from sqlalchemy.pool import NullPool
+# pyrefly: ignore [missing-import]
 from sqlmodel.ext.asyncio.session import AsyncSession
 from sqlalchemy.orm import sessionmaker
 

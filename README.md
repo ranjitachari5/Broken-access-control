@@ -11,8 +11,8 @@ The project is structured as a microservices architecture divided into four dist
 
 | Module | Core Responsibility | Tech Stack | Owner |
 | :--- | :--- | :--- | :--- |
-| **Backend (API Gateway)** | Handles authentication, enforces RBAC/ABAC rules, and bridges modules[cite: 1]. | FastAPI, PostgreSQL, WebSockets | Ranzaa |
-| **Frontend (Dashboard)** | Provides the visual UI, login portals, and real-time alerts[cite: 1]. | React.js, Tailwind, Socket.io-client | Frontend Dev |
+| **Backend (API Gateway)** | Handles authentication, enforces RBAC/ABAC rules, and bridges modules[cite: 1]. | FastAPI, PostgreSQL, WebSockets | Ranjit |
+| **Frontend (Dashboard)** | Provides the visual UI, login portals, and real-time alerts[cite: 1]. | React.js, Tailwind, Socket.io-client | Chandan  |
 | **AI Threat Detection** | Analyzes access logs and scores behavioral anomalies in near-live requests[cite: 1]. | Python, Scikit-learn, TensorFlow | AI Dev |
 | **Blockchain (Audit Log)** | Secures critical system events in immutable smart contracts[cite: 1]. | Solidity, Ganache, Hardhat | Blockchain Dev |
 

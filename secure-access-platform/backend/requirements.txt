@@ -1,0 +1,41 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Secure Access Control Platform — Backend Dependencies
+# Python 3.11–3.14 compatible (pre-built wheels, no C compiler needed)
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── Web Framework ─────────────────────────────────────────────────────────────
+fastapi==0.111.1
+uvicorn[standard]==0.30.1
+
+# ── ORM / Database ────────────────────────────────────────────────────────────
+sqlmodel==0.0.19
+asyncpg==0.31.0            # 0.31.0 ships cp314-win_amd64 wheel — no MSVC needed
+sqlalchemy[asyncio]==2.0.31
+alembic==1.13.2
+
+# ── Authentication / Security ─────────────────────────────────────────────────
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+python-multipart==0.0.9
+
+# ── Settings / Config ─────────────────────────────────────────────────────────
+pydantic-settings==2.3.4
+
+# ── Real-Time (Socket.IO) ─────────────────────────────────────────────────────
+python-socketio==5.11.3
+python-engineio==4.9.1
+
+# ── HTTP Client ───────────────────────────────────────────────────────────────
+httpx==0.27.0
+
+# ── Blockchain / Web3 (Phase 6) ───────────────────────────────────────────────
+# web3 pulls in ckzg + lru-dict which require Microsoft C++ Build Tools.
+# Uncomment ONLY after installing MSVC Build Tools:
+#   https://visualstudio.microsoft.com/visual-cpp-build-tools/
+# OR use Python 3.11/3.12 where pre-built wheels are available.
+#
+# web3==6.20.1
+
+# ── Dev / Testing (optional) ──────────────────────────────────────────────────
+# pytest==8.2.2
+# pytest-asyncio==0.23.7

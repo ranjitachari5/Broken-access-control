@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useLiveMonitoring } from '../context/LiveMonitoringContext';
 import { threatService } from '../services/threatService';
 import { useNotification } from '../context/NotificationContext';
 import ThreatCard from '../components/threats/ThreatCard';
 import ThreatDetailModal from '../components/threats/ThreatDetailModal';
-import { AlertOctagon, Search, ShieldAlert, Zap, Filter } from 'lucide-react';
+import { AlertOctagon, Search, Zap, Filter } from 'lucide-react';
 
 const ThreatAlertsPage = () => {
   const { alerts, refreshData } = useLiveMonitoring();
@@ -46,42 +46,42 @@ const ThreatAlertsPage = () => {
   });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 p-2">
       {/* Top Banner */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 glass-panel p-6 rounded-2xl border border-white/10">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 glass-panel p-8">
         <div>
-          <h1 className="text-xl font-bold text-white flex items-center gap-2">
-            <AlertOctagon className="w-6 h-6 text-red-400 glow-red" /> AI Threat Detection & Incident Alerts
+          <h1 className="text-2xl font-bold font-academic text-[#002147] flex items-center gap-2.5">
+            <AlertOctagon className="w-6 h-6 text-rose-600" /> AI Threat Detection & Incident Alerts
           </h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 font-sans mt-1">
             Real-time notifications for Broken Object Level Access (BOLA) & Privilege Escalation threats.
           </p>
         </div>
 
         <button
           onClick={handleTriggerSimulatedThreat}
-          className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white text-xs font-bold shadow-lg shadow-red-500/25 flex items-center gap-2 transition-all shrink-0"
+          className="px-5 py-3 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold shadow-sm flex items-center gap-2 transition-all shrink-0"
         >
           <Zap className="w-4 h-4" /> Trigger Simulated Attack
         </button>
       </div>
 
       {/* Filter Bar */}
-      <div className="glass-panel p-4 rounded-2xl border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="glass-panel p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="relative w-full sm:w-80">
           <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search alerts by title or endpoint..."
-            className="w-full bg-slate-900 border border-white/10 rounded-xl pl-10 pr-4 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+            placeholder="Search anomalies by title, endpoint..."
+            className="w-full bg-white/80 border border-slate-200/90 rounded-xl pl-10 pr-4 py-2.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#00D084]"
           />
         </div>
 
-        <div className="flex items-center gap-3 w-full sm:w-auto">
-          <div className="flex items-center gap-2 text-xs text-slate-400">
-            <Filter className="w-3.5 h-3.5" /> Risk Filter:
+        <div className="flex items-center gap-3 w-full sm:w-auto font-sans">
+          <div className="flex items-center gap-2 text-xs text-slate-500">
+            <Filter className="w-3.5 h-3.5" /> Severity Filter:
           </div>
 
           {['All', 'High', 'Medium', 'Low'].map((level) => (
@@ -90,8 +90,8 @@ const ThreatAlertsPage = () => {
               onClick={() => setRiskFilter(level)}
               className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
                 riskFilter === level
-                  ? 'bg-blue-600/20 text-blue-400 border border-blue-500/40 glow-blue font-bold'
-                  : 'bg-slate-900 text-slate-400 hover:text-white border border-white/5'
+                  ? 'bg-[#002147] text-white shadow-xs font-bold'
+                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
               }`}
             >
               {level} Risk
@@ -101,10 +101,10 @@ const ThreatAlertsPage = () => {
       </div>
 
       {/* Threat Alert Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {filteredAlerts.length === 0 ? (
-          <div className="col-span-2 glass-panel p-12 text-center text-xs text-slate-400 rounded-2xl border border-white/10">
-            No security threat alerts match the selected risk filters.
+          <div className="col-span-2 glass-panel p-12 text-center text-xs text-slate-500">
+            No security threat anomalies match the selected filters.
           </div>
         ) : (
           filteredAlerts.map((alert) => (

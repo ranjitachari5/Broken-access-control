@@ -16,6 +16,7 @@ import MonitoringPage from './pages/MonitoringPage';
 import ThreatAlertsPage from './pages/ThreatAlertsPage';
 import AuditLogsPage from './pages/AuditLogsPage';
 import AnalyticsPage from './pages/AnalyticsPage';
+import StellarCorpPage from './pages/StellarCorpPage';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <LiveMonitoringProvider>
             <Routes>
               {/* Public Authentication Routes */}
+              <Route path="/stellarcorp" element={<StellarCorpPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/forgot-password" element={<ForgotPasswordPage />} />

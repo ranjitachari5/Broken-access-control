@@ -10,55 +10,54 @@ import {
   BarChart3,
   ShieldCheck,
   Lock,
+  Terminal,
 } from 'lucide-react';
 
 const Sidebar = () => {
   const { user } = useAuth();
-  const isAdmin = user?.role === 'Admin';
-  const isManager = user?.role === 'Manager' || isAdmin;
 
   const navItems = [
     {
-      name: 'Admin Dashboard',
+      name: 'ADMIN_DASHBOARD',
       path: '/admin-dashboard',
       icon: LayoutDashboard,
       roles: ['Admin'],
     },
     {
-      name: 'User Dashboard',
+      name: 'USER_INTERFACE',
       path: '/user-dashboard',
       icon: ShieldCheck,
       roles: ['Admin', 'Manager', 'User'],
     },
     {
-      name: 'User Management',
+      name: 'ACCESS_CONTROL',
       path: '/users',
       icon: Users,
       roles: ['Admin', 'Manager'],
-      badge: 'RBAC/ABAC',
+      badge: 'RBAC',
     },
     {
-      name: 'Live API Monitoring',
+      name: 'LIVE_TELEMETRY',
       path: '/monitoring',
       icon: Activity,
       roles: ['Admin', 'Manager', 'User'],
-      badge: 'LIVE',
+      badge: 'STREAM',
     },
     {
-      name: 'Threat Alerts',
+      name: 'AI_ANOMALIES',
       path: '/threats',
       icon: AlertOctagon,
       roles: ['Admin', 'Manager'],
-      badge: 'AI Model',
+      badge: 'ML_NET',
     },
     {
-      name: 'Audit Logs',
+      name: 'AUDIT_LEDGER',
       path: '/audit-logs',
       icon: FileSpreadsheet,
       roles: ['Admin', 'Manager', 'User'],
     },
     {
-      name: 'Analytics & Reports',
+      name: 'DATA_ANALYTICS',
       path: '/analytics',
       icon: BarChart3,
       roles: ['Admin', 'Manager', 'User'],
@@ -66,22 +65,24 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="w-64 glass-panel border-r border-white/10 shrink-0 hidden md:flex flex-col min-h-[calc(100vh-65px)]">
+    <aside className="w-64 glass-panel border-r border-white/10 shrink-0 hidden md:flex flex-col min-h-[calc(100vh-65px)] font-mono">
       <div className="p-4 space-y-6 flex-1">
         {/* Role Badge Indicator */}
-        <div className="p-3 rounded-xl bg-slate-900/80 border border-white/5 flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-blue-500/20 border border-blue-500/30 flex items-center justify-center">
-            <Lock className="w-4 h-4 text-blue-400" />
+        <div className="p-3.5 bg-black border border-white/10 flex items-center gap-3">
+          <div className="w-8 h-8 bg-[#CCFF00] flex items-center justify-center text-black font-bold">
+            <Lock className="w-4 h-4" />
           </div>
           <div>
-            <p className="text-[11px] text-slate-400 font-medium uppercase tracking-wider">Access Scope</p>
-            <p className="text-xs font-bold text-white">{user?.role || 'User'} Level</p>
+            <p className="text-[9px] text-zinc-500 uppercase tracking-widest">ACCESS_TIER</p>
+            <p className="text-xs font-bold text-white tracking-wider">{user?.role || 'USER'} // ROOT</p>
           </div>
         </div>
 
         {/* Navigation Section */}
         <div>
-          <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest px-3 mb-2">Core Modules</p>
+          <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest px-2 mb-2 flex items-center gap-1">
+            <Terminal className="w-3 h-3 text-[#CCFF00]" /> SYSTEM_MODULES
+          </p>
           <nav className="space-y-1">
             {navItems
               .filter((item) => item.roles.includes(user?.role || 'User'))
@@ -92,25 +93,21 @@ const Sidebar = () => {
                     key={item.path}
                     to={item.path}
                     className={({ isActive }) =>
-                      `flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium transition-all group ${
+                      `flex items-center justify-between px-3 py-2 text-xs font-bold transition-all ${
                         isActive
-                          ? 'bg-blue-600/20 text-blue-400 border border-blue-500/40 glow-blue font-semibold'
-                          : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                          ? 'bg-[#CCFF00] text-black shadow-[3px_3px_0px_#FF007F] border border-black'
+                          : 'text-zinc-400 hover:text-[#CCFF00] hover:bg-zinc-900 border border-transparent'
                       }`
                     }
                   >
-                    <div className="flex items-center gap-3">
-                      <Icon className="w-4 h-4 text-slate-400 group-hover:text-blue-400 transition-colors" />
+                    <div className="flex items-center gap-2.5">
+                      <Icon className="w-4 h-4" />
                       <span>{item.name}</span>
                     </div>
 
                     {item.badge && (
                       <span
-                        className={`text-[9px] px-2 py-0.5 rounded-full font-bold uppercase ${
-                          item.badge === 'LIVE'
-                            ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                            : 'bg-purple-500/20 text-purple-300 border border-purple-500/30'
-                        }`}
+                        className="text-[9px] px-1.5 py-0.2 font-mono font-bold bg-[#FF007F]/20 text-[#FF007F] border border-[#FF007F]"
                       >
                         {item.badge}
                       </span>
@@ -123,9 +120,9 @@ const Sidebar = () => {
       </div>
 
       {/* Footer Info */}
-      <div className="p-4 border-t border-white/10 text-[11px] text-slate-400">
-        <p className="font-medium text-slate-400">Policy Authorization Engine</p>
-        <p className="text-[10px] text-slate-400 mt-0.5">Frontend Dev: Chandan K N</p>
+      <div className="p-4 border-t border-white/10 text-[10px] text-zinc-500 bg-black">
+        <p className="font-bold text-[#CCFF00]">POLICY_ENGINE // ONLINE</p>
+        <p className="text-zinc-600 mt-0.5">ENCRYPTED_SHA256_ACTIVE</p>
       </div>
     </aside>
   );

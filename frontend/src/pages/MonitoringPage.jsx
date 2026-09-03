@@ -4,14 +4,14 @@ import { monitoringService } from '../services/monitoringService';
 import { useNotification } from '../context/NotificationContext';
 import LiveApiTable from '../components/monitoring/LiveApiTable';
 import ActiveSessionsList from '../components/monitoring/ActiveSessionsList';
-import { Activity, Radio, Monitor, AlertOctagon, ShieldAlert, Play, Pause } from 'lucide-react';
+import { Activity, Radio, Monitor, ShieldAlert, Play, Pause } from 'lucide-react';
 
 const MonitoringPage = () => {
   const { logs, isLive, toggleLive } = useLiveMonitoring();
   const [activeTab, setActiveTab] = useState('live-logs');
   const [sessions, setSessions] = useState([]);
   const [loadingSessions, setLoadingSessions] = useState(false);
-  const { showSuccess, showError } = useNotification();
+  const { showSuccess } = useNotification();
 
   const fetchSessions = async () => {
     setLoadingSessions(true);
@@ -26,36 +26,36 @@ const MonitoringPage = () => {
 
   const handleRevokeSession = async (sessionId) => {
     await monitoringService.revokeSession(sessionId);
-    showSuccess(`Session token ${sessionId} revoked and invalidated.`, 'Session Terminated');
+    showSuccess(`Session ${sessionId} terminated.`, 'REVOKE_SUCCESS');
     fetchSessions();
   };
 
   const violationsCount = logs.filter((l) => l.status === 403 || l.status === 401).length;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 font-mono">
       {/* Top Banner */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 glass-panel p-6 rounded-2xl border border-white/10">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 glass-panel p-6 border border-white/15 hover:border-[#CCFF00] transition-all">
         <div>
-          <h1 className="text-xl font-bold text-white flex items-center gap-2">
-            <Activity className="w-6 h-6 text-emerald-400" /> Live API Request & Session Monitoring
+          <h1 className="text-2xl font-clash text-white flex items-center gap-2.5">
+            <Activity className="w-6 h-6 text-[#CCFF00]" /> TELEMETRY_STREAM // LIVE_API
           </h1>
-          <p className="text-xs text-slate-400 mt-1">
-            Real-time request interception, active JWT sessions, and broken access violation stream.
+          <p className="text-xs text-zinc-400 mt-1">
+            Intercepted traffic stream, cryptographic JWT sessions, and broken access exceptions.
           </p>
         </div>
 
         <div className="flex items-center gap-3">
           <button
             onClick={toggleLive}
-            className={`px-4 py-2 rounded-xl text-xs font-bold border flex items-center gap-2 transition-all ${
+            className={`px-4 py-2 text-xs font-bold border transition-all ${
               isLive
-                ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40 glow-emerald'
-                : 'bg-amber-500/20 text-amber-400 border-amber-500/40'
+                ? 'bg-[#CCFF00] text-black border-[#CCFF00] shadow-[0_0_15px_rgba(204,255,0,0.5)]'
+                : 'bg-zinc-900 text-zinc-400 border-zinc-700'
             }`}
           >
-            {isLive ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-            <span>{isLive ? 'STREAMING ACTIVE' : 'STREAM PAUSED'}</span>
+            {isLive ? <Pause className="w-4 h-4 inline mr-1.5" /> : <Play className="w-4 h-4 inline mr-1.5" />}
+            <span>{isLive ? 'STREAM_LIVE' : 'STREAM_PAUSED'}</span>
           </button>
         </div>
       </div>
@@ -64,58 +64,58 @@ const MonitoringPage = () => {
       <div className="flex items-center gap-2 border-b border-white/10 pb-3">
         <button
           onClick={() => setActiveTab('live-logs')}
-          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
+          className={`px-4 py-2 text-xs font-bold transition-all flex items-center gap-2 ${
             activeTab === 'live-logs'
-              ? 'bg-blue-600/20 text-blue-400 border border-blue-500/40 glow-blue'
-              : 'text-slate-400 hover:text-white hover:bg-slate-800'
+              ? 'bg-[#CCFF00] text-black shadow-[3px_3px_0px_#FF007F] border border-black'
+              : 'text-zinc-400 hover:text-[#CCFF00] hover:bg-zinc-900'
           }`}
         >
-          <Radio className="w-4 h-4 text-blue-400" />
-          <span>Live API Request Stream</span>
-          <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 font-mono">
+          <Radio className="w-4 h-4" />
+          <span>REQUEST_STREAM</span>
+          <span className="text-[10px] px-1.5 py-0.2 bg-black/40 text-black font-bold">
             {logs.length}
           </span>
         </button>
 
         <button
           onClick={() => setActiveTab('active-sessions')}
-          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
+          className={`px-4 py-2 text-xs font-bold transition-all flex items-center gap-2 ${
             activeTab === 'active-sessions'
-              ? 'bg-blue-600/20 text-blue-400 border border-blue-500/40 glow-blue'
-              : 'text-slate-400 hover:text-white hover:bg-slate-800'
+              ? 'bg-[#CCFF00] text-black shadow-[3px_3px_0px_#FF007F] border border-black'
+              : 'text-zinc-400 hover:text-[#CCFF00] hover:bg-zinc-900'
           }`}
         >
-          <Monitor className="w-4 h-4 text-purple-400" />
-          <span>Active User Sessions</span>
-          <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 font-mono">
+          <Monitor className="w-4 h-4" />
+          <span>SESSIONS</span>
+          <span className="text-[10px] px-1.5 py-0.2 bg-black/40 text-black font-bold">
             {sessions.length}
           </span>
         </button>
 
         <button
           onClick={() => setActiveTab('violations')}
-          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
+          className={`px-4 py-2 text-xs font-bold transition-all flex items-center gap-2 ${
             activeTab === 'violations'
-              ? 'bg-red-600/20 text-red-400 border border-red-500/40 glow-red'
-              : 'text-slate-400 hover:text-white hover:bg-slate-800'
+              ? 'bg-[#FF007F] text-white shadow-[3px_3px_0px_#CCFF00] border border-black'
+              : 'text-zinc-400 hover:text-[#FF007F] hover:bg-zinc-900'
           }`}
         >
-          <ShieldAlert className="w-4 h-4 text-red-400" />
-          <span>Access Violation Logs</span>
-          <span className="text-[10px] px-2 py-0.5 rounded-full bg-red-500/20 text-red-300 font-mono">
+          <ShieldAlert className="w-4 h-4" />
+          <span>VIOLATIONS</span>
+          <span className="text-[10px] px-1.5 py-0.2 bg-white/20 text-white font-bold">
             {violationsCount}
           </span>
         </button>
       </div>
 
       {/* Main Tab Content Container */}
-      <div className="glass-panel p-6 rounded-2xl border border-white/10">
+      <div className="glass-panel p-6 border border-white/15">
         {activeTab === 'live-logs' && <LiveApiTable logs={logs} />}
 
         {activeTab === 'active-sessions' && (
           <div>
             {loadingSessions ? (
-              <div className="py-12 text-center text-xs text-slate-400">Loading active sessions...</div>
+              <div className="py-12 text-center text-xs text-zinc-500">POLLING_ACTIVE_SESSIONS...</div>
             ) : (
               <ActiveSessionsList sessions={sessions} onRevokeSession={handleRevokeSession} />
             )}

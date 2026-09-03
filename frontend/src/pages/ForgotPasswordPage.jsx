@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { authService } from '../services/authService';
 import { useNotification } from '../context/NotificationContext';
-import { Shield, Mail, ArrowLeft, Send } from 'lucide-react';
+import { Shield, Mail, ArrowLeft, Send, Zap } from 'lucide-react';
 
 const ForgotPasswordPage = () => {
   const [email, setEmail] = useState('');
@@ -25,48 +25,50 @@ const ForgotPasswordPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#090d16] text-white flex items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen bg-[#050505] text-white flex items-center justify-center p-6 relative overflow-hidden font-mono">
       <div className="w-full max-w-md relative z-10">
         <div className="text-center mb-8">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center mx-auto mb-4 shadow-xl border border-blue-400/30">
-            <Shield className="w-8 h-8 text-white" />
+          <div className="w-16 h-16 bg-[#CCFF00] text-black flex items-center justify-center mx-auto mb-4 border-2 border-black shadow-[4px_4px_0px_#FF007F]">
+            <Zap className="w-8 h-8 fill-black" />
           </div>
-          <h2 className="text-2xl font-black text-white tracking-tight">Reset Account Password</h2>
-          <p className="text-xs text-slate-400 mt-1.5">Validate your identity to restore authorization credentials</p>
+          <h2 className="text-3xl font-clash text-white tracking-wider">RESET_SECRET_KEY</h2>
+          <p className="text-[11px] text-[#CCFF00] mt-1 font-mono tracking-widest uppercase">
+            [DISPATCH AUTH TOKEN RECOVERY]
+          </p>
         </div>
 
-        <div className="glass-panel rounded-2xl p-8 border border-white/10 shadow-2xl space-y-6">
+        <div className="glass-panel p-8 space-y-6 border border-white/15 hover:border-[#CCFF00] transition-all">
           {sent ? (
             <div className="text-center space-y-4 py-4">
-              <div className="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto border border-emerald-500/30">
-                <Send className="w-6 h-6" />
+              <div className="w-14 h-14 bg-[#CCFF00]/20 text-[#CCFF00] flex items-center justify-center mx-auto border border-[#CCFF00] shadow-[0_0_15px_rgba(204,255,0,0.4)]">
+                <Send className="w-7 h-7" />
               </div>
-              <h3 className="text-lg font-bold text-white">Reset Link Dispatched</h3>
-              <p className="text-xs text-slate-300">
-                If an account exists for <span className="text-blue-400 font-semibold">{email}</span>, password recovery instructions have been sent.
+              <h3 className="text-xl font-clash text-white">RECOVERY_DISPATCHED</h3>
+              <p className="text-xs text-zinc-400 font-mono">
+                DISPATCHED ACCESS OVERRIDE INSTRUCTIONS TO <span className="text-[#CCFF00] font-bold">{email}</span>.
               </p>
               <Link
                 to="/login"
-                className="inline-flex items-center gap-2 text-xs font-bold text-blue-400 hover:text-blue-300 pt-2"
+                className="inline-flex items-center gap-2 text-xs font-bold text-[#CCFF00] hover:underline pt-2 font-mono"
               >
-                <ArrowLeft className="w-4 h-4" /> Back to Sign In
+                <ArrowLeft className="w-4 h-4" /> BACK_TO_LOGIN
               </Link>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-                  Account Email Address
+                <label className="block text-[11px] font-bold text-zinc-300 uppercase tracking-widest mb-2 font-mono">
+                  OPERATOR_EMAIL
                 </label>
                 <div className="relative">
-                  <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                  <Mail className="w-4 h-4 text-zinc-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
                   <input
                     type="email"
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="chandan@secure.io"
-                    className="w-full bg-slate-900/90 border border-white/10 rounded-xl pl-10 pr-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-all"
+                    placeholder="operator@system.io"
+                    className="w-full bg-black border border-white/20 pl-10 pr-4 py-2.5 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-[#CCFF00] focus:shadow-[0_0_15px_rgba(204,255,0,0.3)] transition-all"
                   />
                 </div>
               </div>
@@ -74,21 +76,21 @@ const ForgotPasswordPage = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-bold shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2 transition-all"
+                className="w-full py-3 px-4 btn-acid text-black text-xs font-black tracking-widest shadow-md flex items-center justify-center gap-2 transition-all"
               >
                 {loading ? (
-                  <span>Dispatching Token...</span>
+                  <span>DISPATCHING_RECOVERY...</span>
                 ) : (
                   <>
-                    <span>Send Reset Instructions</span>
+                    <span>TRANSMIT_RESET_VECTOR</span>
                     <Send className="w-4 h-4" />
                   </>
                 )}
               </button>
 
-              <div className="text-center pt-2">
-                <Link to="/login" className="text-xs text-slate-400 hover:text-white inline-flex items-center gap-1.5">
-                  <ArrowLeft className="w-3.5 h-3.5" /> Back to Login
+              <div className="text-center pt-2 font-mono">
+                <Link to="/login" className="text-xs text-zinc-500 hover:text-white inline-flex items-center gap-1.5 font-bold">
+                  <ArrowLeft className="w-3.5 h-3.5" /> CANCEL // RETURN
                 </Link>
               </div>
             </form>

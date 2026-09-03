@@ -2,75 +2,142 @@
 
 @layer base {
   :root {
-    --bg-main: #090d16;
-    --bg-card: #111827;
-    --border-color: rgba(255, 255, 255, 0.08);
+    --bg-dark: #050505;
+    --bg-panel: rgba(13, 13, 13, 0.88);
+    --border-subtle: rgba(255, 255, 255, 0.1);
+    --acid-green: #CCFF00;
+    --cyber-pink: #FF007F;
+    --text-white: #FFFFFF;
+    --text-muted: #71717A;
   }
 
   body {
-    background-color: var(--bg-main);
-    color: #f3f4f6;
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-white);
+    font-family: 'JetBrains Mono', monospace;
     overflow-x: hidden;
+  }
+
+  h1, h2, h3, .font-heading, .font-clash {
+    font-family: 'Clash Display', sans-serif;
+    letter-spacing: -0.02em;
+    font-weight: 800;
+    text-transform: uppercase;
   }
 }
 
-/* Custom Scrollbar */
+/* Subtle Retro Film-Grain Noise Texture Overlay */
+.film-grain-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Custom Scrollbar - Y2K Cyber Acid */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #090d16;
+  background: #09090B;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1f293d;
-  border-radius: 4px;
+  background: #27272A;
+  border-radius: 0px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3b82f6;
+  background: #CCFF00;
 }
 
-/* Custom Glassmorphism */
+/* Dark Glassmorphism Feature Container with 1px Glowing Neon Border on Hover */
 .glass-panel {
-  background: rgba(17, 24, 39, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(13, 13, 13, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.7);
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.glass-panel-hover {
-  transition: all 0.25s ease-in-out;
+.glass-panel:hover, .neon-hover:hover {
+  border-color: #CCFF00;
+  box-shadow: 0 0 20px rgba(204, 255, 0, 0.28), inset 0 0 12px rgba(204, 255, 0, 0.05);
 }
 
-.glass-panel-hover:hover {
-  border-color: rgba(59, 130, 246, 0.4);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(59, 130, 246, 0.15);
+.neon-pink-hover:hover {
+  border-color: #FF007F;
+  box-shadow: 0 0 20px rgba(255, 0, 127, 0.32), inset 0 0 12px rgba(255, 0, 127, 0.05);
 }
 
-/* Glow effects */
-.glow-blue {
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.35);
+/* Brutalist High-Voltage Buttons */
+.btn-acid {
+  background: #CCFF00;
+  color: #000000;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 3px 3px 0px #FFFFFF;
 }
 
-.glow-red {
-  box-shadow: 0 0 20px rgba(239, 68, 68, 0.35);
+.btn-acid:hover {
+  background: #DDFF33;
+  box-shadow: 4px 4px 0px #FF007F, 0 0 18px rgba(204, 255, 0, 0.5);
+  transform: translate(-2px, -2px);
 }
 
-.glow-emerald {
-  box-shadow: 0 0 20px rgba(16, 185, 129, 0.35);
+.btn-acid:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0px #FF007F;
 }
 
-/* Pulse animation for live status */
-@keyframes pulse-ring {
-  0% { transform: scale(0.95); opacity: 0.8; }
-  50% { transform: scale(1.15); opacity: 0.4; }
-  100% { transform: scale(0.95); opacity: 0.8; }
+.btn-cyber {
+  background: #FF007F;
+  color: #FFFFFF;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 3px 3px 0px #CCFF00;
 }
 
-.live-pulse {
-  animation: pulse-ring 2s infinite ease-in-out;
+.btn-cyber:hover {
+  background: #FF1A8C;
+  box-shadow: 4px 4px 0px #CCFF00, 0 0 18px rgba(255, 0, 127, 0.5);
+  transform: translate(-2px, -2px);
+}
+
+.btn-cyber:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0px #CCFF00;
+}
+
+.btn-dark {
+  background: #18181B;
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-dark:hover {
+  border-color: #CCFF00;
+  color: #CCFF00;
+  box-shadow: 0 0 15px rgba(204, 255, 0, 0.2);
+}
+
+/* Snappy universal interactive transition */
+button, a, input, select {
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
 }

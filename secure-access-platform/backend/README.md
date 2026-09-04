@@ -151,6 +151,7 @@ cp .env.example .env         # macOS/Linux
 
 # 6. Run the development server
 uvicorn main:app --reload
+
 ```
 
 > ⚠️ **Common mistake:** If you see `ModuleNotFoundError: No module named 'pydantic_settings'`
@@ -167,7 +168,6 @@ The server will be available at:
 | `http://localhost:8000/health` | Health-check probe |
 | `http://localhost:8000/api/v1/docs` | Swagger UI (interactive API docs) |
 | `http://localhost:8000/api/v1/redoc` | ReDoc documentation |
-
 ---
 
 ## Environment Variables
